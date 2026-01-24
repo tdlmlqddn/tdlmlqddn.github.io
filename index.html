@@ -32,7 +32,6 @@
       margin-top: 40px;
     }
 
-    /* Accordion */
     .accordion-item {
       border-bottom: 1px solid #ddd;
     }
@@ -77,37 +76,21 @@
   <div class="accordion-item">
     <div class="accordion-title">MP3</div>
     <div class="accordion-content">
-      <!-- Bạn tự phát triển nội dung -->
-      <p>
-        MP3 là định dạng nén lossy phổ biến nhất hiện nay...
-      </p>
+      <p>Nội dung bạn tự phát triển…</p>
     </div>
   </div>
 
   <div class="accordion-item">
     <div class="accordion-title">FLAC</div>
     <div class="accordion-content">
-      <p>
-        FLAC là định dạng lossless, giữ nguyên dữ liệu âm thanh gốc...
-      </p>
+      <p>Nội dung bạn tự phát triển…</p>
     </div>
   </div>
 
   <div class="accordion-item">
     <div class="accordion-title">WAV / AIFF</div>
     <div class="accordion-content">
-      <p>
-        WAV và AIFF thường dùng trong phòng thu...
-      </p>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <div class="accordion-title">AAC / OGG / OPUS</div>
-    <div class="accordion-content">
-      <p>
-        Các codec hiện đại, tối ưu cho streaming...
-      </p>
+      <p>Nội dung bạn tự phát triển…</p>
     </div>
   </div>
 
@@ -117,26 +100,27 @@
   © 2026 - Audio Formats
 </footer>
 
+<!-- JS -->
 <script>
+  /* Accordion */
   const titles = document.querySelectorAll(".accordion-title");
 
   titles.forEach(title => {
     title.addEventListener("click", () => {
       const content = title.nextElementSibling;
-
-      // toggle
       content.style.display =
         content.style.display === "block" ? "none" : "block";
     });
   });
 
+  /* Chặn chuột phải + phím tắt */
+  document.addEventListener("contextmenu", e => e.preventDefault());
 
-
-  document.addEventListener('contextmenu', event => event.preventDefault());
   document.onkeydown = function(e) {
-    if (e.keyCode == 123) return false; // F12
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false; 
-    if (e.ctrlKey && e.keyCode == 85) return false; 
+    if (e.keyCode === 123) return false; // F12
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false; // Ctrl+Shift+I
+    if (e.ctrlKey && e.keyCode === 85) return false; // Ctrl+U
+  };
 </script>
 
 </body>
