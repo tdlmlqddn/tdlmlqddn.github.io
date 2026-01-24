@@ -10,7 +10,6 @@
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       margin: 0;
-      color: #333;
     }
 
     header {
@@ -18,6 +17,26 @@
       color: white;
       padding: 30px;
       text-align: center;
+    }
+
+    nav {
+      background: #333;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background: #555;
     }
 
     .container {
@@ -28,23 +47,21 @@
       border-radius: 8px;
     }
 
-    h2 {
-      margin-top: 40px;
+    .tab-content {
+      display: none;
     }
 
-    .accordion-item {
-      border-bottom: 1px solid #ddd;
+    .tab-content.active {
+      display: block;
     }
 
+    /* Accordion */
     .accordion-title {
       padding: 15px;
-      cursor: pointer;
       background: #f0f0f0;
+      cursor: pointer;
       font-weight: bold;
-    }
-
-    .accordion-title:hover {
-      background: #e0e0e0;
+      border-bottom: 1px solid #ddd;
     }
 
     .accordion-content {
@@ -65,33 +82,69 @@
 <body>
 
 <header>
-  <h1>Các định dạng Audio</h1>
-  <p>Click vào từng mục để xem nội dung chi tiết</p>
+  <h1>Thế giới Audio</h1>
+  <p>Định dạng âm thanh & chia sẻ nhạc</p>
 </header>
+
+<!-- 🔹 MENU TAB -->
+<nav>
+  <button class="tab-btn active" data-tab="audio">Audio</button>
+  <button class="tab-btn" data-tab="about">About Me</button>
+</nav>
 
 <div class="container">
 
-  <h2>Định dạng âm thanh phổ biến</h2>
+  <!-- 🔹 TAB AUDIO -->
+  <div id="audio" class="tab-content active">
 
-  <div class="accordion-item">
+    <h2>Các định dạng Audio</h2>
+
     <div class="accordion-title">MP3</div>
     <div class="accordion-content">
       <p>Nội dung bạn tự phát triển…</p>
     </div>
-  </div>
 
-  <div class="accordion-item">
     <div class="accordion-title">FLAC</div>
     <div class="accordion-content">
       <p>Nội dung bạn tự phát triển…</p>
     </div>
-  </div>
 
-  <div class="accordion-item">
     <div class="accordion-title">WAV / AIFF</div>
     <div class="accordion-content">
       <p>Nội dung bạn tự phát triển…</p>
     </div>
+
+  </div>
+
+  <!-- 🔹 TAB ABOUT ME -->
+  <div id="about" class="tab-content">
+
+    <h2>Giới thiệu bản thân</h2>
+
+    <p>
+      <!-- Bạn tự viết -->
+      Xin chào, tôi là …
+    </p>
+
+    <h3>Đam mê</h3>
+    <ul>
+      <li>Âm thanh & audio chất lượng cao</li>
+      <li>Các định dạng nhạc, mastering, lưu trữ</li>
+      <li>Web tĩnh & công nghệ mã nguồn mở</li>
+    </ul>
+
+    <h3>Mục tiêu của website</h3>
+    <p>
+      <!-- Bạn tự viết -->
+      Website này được tạo ra nhằm chia sẻ kiến thức, quan điểm cá nhân
+      về âm thanh và nhạc số.
+    </p>
+
+    <h3>Liên hệ</h3>
+    <p>
+      Email / GitHub / Facebook (tuỳ bạn thêm)
+    </p>
+
   </div>
 
 </div>
@@ -100,12 +153,24 @@
   © 2026 - Audio Formats
 </footer>
 
-<!-- JS -->
+<!-- 🔹 JS -->
 <script>
-  /* Accordion */
-  const titles = document.querySelectorAll(".accordion-title");
+  /* Tabs */
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-content");
 
-  titles.forEach(title => {
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabButtons.forEach(b => b.classList.remove("active"));
+      tabs.forEach(t => t.classList.remove("active"));
+
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  /* Accordion */
+  document.querySelectorAll(".accordion-title").forEach(title => {
     title.addEventListener("click", () => {
       const content = title.nextElementSibling;
       content.style.display =
@@ -113,14 +178,8 @@
     });
   });
 
-  /* Chặn chuột phải + phím tắt */
+  /* Chặn chuột phải */
   document.addEventListener("contextmenu", e => e.preventDefault());
-
-  document.onkeydown = function(e) {
-    if (e.keyCode === 123) return false; // F12
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false; // Ctrl+Shift+I
-    if (e.ctrlKey && e.keyCode === 85) return false; // Ctrl+U
-  };
 </script>
 
 </body>
