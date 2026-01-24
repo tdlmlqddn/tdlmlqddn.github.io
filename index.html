@@ -7,13 +7,10 @@
 
   <style>
     /* ===== RESET & BASE ===== */
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif; /* Font hiện đại hơn */
       background: #f5f5f5;
       color: #333;
       line-height: 1.6;
@@ -23,100 +20,123 @@
     header {
       background: #1e1e1e;
       color: #fff;
-      padding: 30px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
-
-    header h1 {
-      margin: 0 0 10px;
-    }
+    header h1 { margin: 0 0 10px; font-weight: 300; letter-spacing: 1px; }
+    header p { color: #aaa; margin: 0; }
 
     /* ===== TABS ===== */
     .tabs {
       display: flex;
       justify-content: center;
-      background: #ddd;
+      background: #e0e0e0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-
     .tab-btn {
-      padding: 14px 30px;
+      padding: 15px 35px;
       border: none;
-      background: #ccc;
+      background: transparent;
       cursor: pointer;
       font-size: 16px;
-      transition: background 0.2s;
+      font-weight: 600;
+      color: #555;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
     }
-
-    .tab-btn:hover {
-      background: #bbb;
-    }
-
+    .tab-btn:hover { background: #dcdcdc; color: #000; }
     .tab-btn.active {
-      background: #1e1e1e;
-      color: #fff;
+      background: #fff;
+      color: #1e1e1e;
+      border-bottom: 3px solid #1e1e1e;
     }
 
     /* ===== CONTAINER ===== */
     .container {
       max-width: 900px;
-      margin: 30px auto;
+      margin: 40px auto;
       background: #fff;
-      padding: 30px;
+      padding: 40px;
       border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      min-height: 400px; /* Giữ khung không bị nhảy khi nội dung ngắn */
     }
 
     /* ===== TAB CONTENT ===== */
     .tab-content {
       display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .tab-content.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .tab-content.active {
-      display: block;
-    }
-
-    /* ===== ACCORDION ===== */
+    /* ===== ACCORDION STYLE ===== */
     .accordion-title {
-      padding: 15px;
+      padding: 18px;
+      margin-bottom: 5px;
       cursor: pointer;
-      background: #eaeaea;
+      background: #f4f4f4;
       font-weight: bold;
-      border-bottom: 1px solid #ccc;
+      border-left: 5px solid #1e1e1e;
       transition: background 0.2s;
+      position: relative;
     }
+    .accordion-title:hover { background: #e9e9e9; }
+    /* Icon mũi tên giả */
+    .accordion-title::after {
+      content: '+';
+      position: absolute;
+      right: 20px;
+      font-size: 20px;
+      color: #777;
+    }
+    .accordion-title.open::after { content: '-'; }
 
-    .accordion-title:hover {
-      background: #ddd;
-    }
-
-    .accordion-content {
-      display: none;
-      padding: 15px;
-      background: #fafafa;
-    }
+    .accordion-content { display: none; padding: 10px 20px 20px; }
 
     /* ===== SUB ACCORDION ===== */
     .sub-title {
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
-      background: #f0f0f0;
+      background: #fff;
+      border: 1px solid #eee;
       cursor: pointer;
-      font-weight: bold;
-      border-left: 4px solid #666;
+      font-weight: 600;
+      color: #444;
+      display: flex;
+      justify-content: space-between;
     }
-
+    .sub-title:hover { background: #fafafa; color: #000; border-color: #ccc; }
+    
     .sub-content {
       display: none;
-      padding: 10px 15px;
-      background: #fff;
-      border-left: 4px solid #aaa;
+      padding: 15px;
+      background: #fdfdfd;
+      border-left: 3px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+      color: #555;
     }
+
+    /* ===== ABOUT SECTION STYLE ===== */
+    .about-card h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: #1e1e1e; }
+    .about-card h3 { color: #555; margin-top: 25px; }
+    .about-card ul { list-style-type: square; padding-left: 20px; color: #444; }
+    .about-card ul li { margin-bottom: 8px; }
+    .contact-info p { margin: 5px 0; font-weight: 500; }
+    .contact-info span { color: #777; font-weight: normal; margin-left: 10px; }
 
     /* ===== FOOTER ===== */
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
       font-size: 14px;
-      color: #777;
+      color: #888;
+      background: #f5f5f5;
     }
   </style>
 </head>
@@ -128,7 +148,6 @@
   <p>Phân loại Lossy & Lossless</p>
 </header>
 
-<!-- ===== TAB BUTTONS ===== -->
 <div class="tabs">
   <button class="tab-btn active" data-tab="audio">Định dạng âm thanh</button>
   <button class="tab-btn" data-tab="about">About me</button>
@@ -136,87 +155,82 @@
 
 <div class="container">
 
-  <!-- ===== AUDIO TAB ===== -->
   <div id="audio" class="tab-content active">
 
-<!-- 🔹 LOSSY -->
-    <div class="accordion-title">Lossy Audio</div>
+    <div class="accordion-title">Lossy Audio (Nén có mất dữ liệu)</div>
     <div class="accordion-content">
-
       <p>
-        Định dạng lossy là phương pháp nén dữ liệu kỹ thuật số (âm thanh, hình ảnh) làm giảm dung lượng đáng kể bằng cách loại bỏ các thông tin, chi tiết mà con người khó nhận biết được. Quá trình này không thể khôi phục lại dữ liệu gốc hoàn toàn, nhưng tối ưu hóa không gian lưu trữ và tốc độ truyền tả
+        Định dạng lossy là phương pháp nén dữ liệu kỹ thuật số (âm thanh, hình ảnh) làm giảm dung lượng đáng kể bằng cách loại bỏ các thông tin, chi tiết mà con người khó nhận biết được.
       </p>
 
-      <div class="sub-title">MP3</div>
+      <div class="sub-title">MP3 <span>▼</span></div>
       <div class="sub-content">
-        <p>MP3 là định dạng nén âm thanh kỹ thuật số phổ biến nhất hiện nay, giúp giảm đáng kể dung lượng tệp tin (gấp nhiều lần) trong khi vẫn đảm bảo chất lượng gần tương đương CD. Nó hoạt động bằng cách loại bỏ các tần số âm thanh mà tai người khó nghe thấy, giúp việc lưu trữ và chia sẻ trên internet, điện thoại, máy nghe nhạc dễ dàng hơn. </p>
+        <p><strong>MP3:</strong> Định dạng phổ biến nhất, giảm dung lượng gấp nhiều lần nhưng vẫn giữ chất lượng khá tốt. Hoạt động bằng cách cắt bỏ các tần số tai người khó nghe.</p>
       </div>
 
-      <div class="sub-title">AAC</div>
+      <div class="sub-title">AAC <span>▼</span></div>
       <div class="sub-content">
-        <p>AAC (Advanced Audio Coding) là định dạng nén âm thanh kỹ thuật số lossy thế hệ mới, được thiết kế làm tiêu chuẩn thay thế MP3. Nó cung cấp chất lượng âm thanh cao hơn, chi tiết hơn ở cùng tốc độ bit (bitrate) so với MP3, giúp tối ưu hóa dung lượng lưu trữ. AAC là định dạng mặc định cho YouTube, Apple Music, iTunes, và các thiết bị iOS/Android.</p>
+        <p><strong>AAC:</strong> Kế thừa của MP3, chất lượng âm thanh tốt hơn ở cùng mức dung lượng. Là chuẩn của Apple (iTunes, Apple Music) và YouTube.</p>
       </div>
 
-      <div class="sub-title">OGG / OPUS</div>
+      <div class="sub-title">OGG / OPUS <span>▼</span></div>
       <div class="sub-content">
-        <p>OGG (Vorbis): Là một định dạng bao (container) đa phương tiện mã nguồn mở và miễn phí, không bị giới hạn bởi bằng sáng chế. Nó thường đi kèm với codec Vorbis để lưu trữ âm thanh chất lượng tốt ở dung lượng thấp, là giải pháp thay thế phổ biến cho MP3.</p>
-        <p>OPUS: Là codec âm thanh hiện đại, mạnh mẽ, được thiết kế cho các ứng dụng Internet thời gian thực (như gọi thoại, phát trực tuyến). Opus kết hợp ưu điểm của SILK (giọng nói) và CELT (âm nhạc) để cung cấp chất lượng cao, độ trễ rất thấp (5-66.5ms) và bitrate linh hoạt.</p>
+        <p><strong>OGG:</strong> Mã nguồn mở, miễn phí. Thường dùng trong Spotify.</p>
+        <p><strong>OPUS:</strong> Codec hiện đại, độ trễ cực thấp, dùng cho gọi thoại và stream thời gian thực.</p>
       </div>
 
-      <div class="sub-title">WMA</div>
+      <div class="sub-title">WMA <span>▼</span></div>
       <div class="sub-content">
-        <p>WMA (Windows Media Audio) là định dạng tệp âm thanh số do Microsoft phát triển, dùng để nén và lưu trữ nhạc chất lượng cao với kích thước nhỏ gọn, cạnh tranh trực tiếp với MP3, hiện nay ít phổ biến so với MP3 và AAC.</p>
+        <p><strong>WMA:</strong> Định dạng của Microsoft. Từng cạnh tranh với MP3 nhưng hiện nay ít phổ biến hơn.</p>
       </div>
-
     </div>
 
-    <!-- 🔹 LOSSLESS -->
-    <div class="accordion-title">Lossless Audio</div>
+    <div class="accordion-title">Lossless Audio (Nén không mất dữ liệu)</div>
     <div class="accordion-content">
-
       <p>
-        Lossless là định dạng nén dữ liệu mà không làm mất đi bất kỳ thông tin gốc nào, cho phép tái tạo lại bản gốc hoàn hảo sau khi giải nén, mang lại chất lượng cao nhất, trái ngược với định dạng lossy (mất mát) như MP3 chỉ giảm kích thước bằng cách loại bỏ dữ liệu ít quan trọng, làm giảm chất lượng. Các file nhạc Lossless phổ biến có dung lượng lớn hơn nhưng giữ trọn vẹn chi tiết, sắc thái, độ động như bản thu gốc, thích hợp cho người yêu âm nhạc và thiết bị chuyên nghiệp.
+        Lossless nén dữ liệu mà không làm mất bất kỳ thông tin gốc nào. Dung lượng lớn hơn Lossy nhưng chất lượng tương đương đĩa CD gốc hoặc phòng thu.
       </p>
 
-      <div class="sub-title">FLAC/ALAC</div>
+      <div class="sub-title">FLAC / ALAC <span>▼</span></div>
       <div class="sub-content">
-        <p>FLAC (Free Lossless Audio Codec) và ALAC (Apple Lossless Audio Codec) là hai định dạng âm thanh nén không mất dữ liệu (lossless), cho phép giảm dung lượng tệp tin xuống khoảng 50-60% so với gốc (WAV/AIFF) mà không làm giảm chất lượng âm thanh, giữ nguyên chất lượng CD (16-bit/44.1kHz) hoặc Hi-Res (24-bit/96kHz trở lên). FLAC (mã nguồn mở) được ưa chuộng rộng rãi hơn, nén tốt hơn, trong khi ALAC (của Apple) tối ưu cho hệ sinh thái Apple (iPhone, iTunes) với kích thước lớn hơn một chút.  </p>
+        <p><strong>FLAC:</strong> Mã nguồn mở, phổ biến nhất cho nhạc chất lượng cao, nén còn 50-60% dung lượng gốc.</p>
+        <p><strong>ALAC:</strong> Tương tự FLAC nhưng do Apple phát triển, tối ưu cho iPhone/Mac.</p>
       </div>
 
-      <div class="sub-title">WAV / AIFF</div>
+      <div class="sub-title">WAV / AIFF <span>▼</span></div>
       <div class="sub-content">
-        <p>WAV và AIFF là hai định dạng tệp âm thanh kỹ thuật số không nén (uncompressed), chất lượng cao (lossless), thường được sử dụng cho âm thanh chuyên nghiệp, thu âm và đĩa CD. WAV (.wav) do Microsoft/IBM phát triển phổ biến trên Windows, trong khi AIFF (.aiff) do Apple phát triển cho macOS. Cả hai cung cấp độ trung thực tuyệt đối, tương đương nhau, nhưng có dung lượng rất lớn. </p>
+        <p><strong>WAV/AIFF:</strong> Không nén (Uncompressed). Giữ nguyên vẹn 100% dữ liệu thu âm nhưng dung lượng rất nặng.</p>
       </div>
 
-      <div class="sub-title">APE</div>
+      <div class="sub-title">APE <span>▼</span></div>
       <div class="sub-content">
-        <p>APE (Monkey's Audio) là định dạng nén âm thanh chất lượng cao (lossless) giúp giảm dung lượng tệp xuống khoảng một nửa mà không làm mất bất kỳ dữ liệu gốc nào. Định dạng này nổi tiếng trong cộng đồng âm thanh chất lượng cao (audiophile) vì khả năng giữ nguyên chất lượng CD gốc, thường đi kèm tệp .cue để phân chia bài hát. </p>
+        <p><strong>APE:</strong> Nén rất mạnh (file nhẹ hơn FLAC chút) nhưng tốn tài nguyên giải mã (pin CPU) hơn khi nghe.</p>
       </div>
 
-      <div class="sub-title">DSD</div>
+      <div class="sub-title">DSD <span>▼</span></div>
       <div class="sub-content">
-        <p>DSD (Direct Stream Digital) được coi là định dạng lossless (không mất dữ liệu) cao cấp, thậm chí là định dạng có chất lượng âm thanh tốt nhất hiện nay, mang lại trải nghiệm chân thực, analog. DSD sử dụng công nghệ 1-bit với tần số lấy mẫu rất cao, khác biệt hoàn toàn với PCM truyền thống (như FLAC, WAV) và thường được dùng cho các bản thu SACD chất lượng cao. </p>
+        <p><strong>DSD:</strong> Định dạng cao cấp sử dụng công nghệ 1-bit, tần số lấy mẫu cực cao, mang lại chất âm "Analog" nhất.</p>
       </div>
+    </div>
 
-  </div>
-
-  <div id="about" class="tab-content active">
+  </div> <div id="about" class="tab-content about-card">
     <h2>Giới thiệu bản thân</h2>
-    <p>Xin chào, tôi là Lê Minh – học sinh chuyên Toán K41, THPT Chuyên Lê Quý Đôn – Đà Nẵng.</p>
+    <p>Xin chào, tôi là <strong>Lê Minh</strong> – học sinh chuyên Toán K41, THPT Chuyên Lê Quý Đôn – Đà Nẵng.</p>
 
-    <h3>Đam mê</h3>
+    <h3>🎯 Đam mê</h3>
     <ul>
-      <li>Âm thanh & Hi-Fi</li>
-      <li>Định dạng nhạc, mastering</li>
-      <li>Công nghệ, lập trình, AI</li>
+      <li><strong>Âm thanh & Hi-Fi:</strong> Tìm hiểu về DAC, AMP và các chuẩn mastering.</li>
+      <li><strong>Công nghệ:</strong> Lập trình web, AI và thuật toán.</li>
     </ul>
 
-    <h3>Mục tiêu website</h3>
-    <p>Chia sẻ kiến thức và quan điểm cá nhân về âm thanh và nhạc số.</p>
+    <h3>🚀 Mục tiêu website</h3>
+    <p>Nơi lưu trữ và chia sẻ kiến thức cá nhân về thế giới nhạc số, giúp mọi người phân biệt và lựa chọn định dạng phù hợp.</p>
 
-    <h3>Liên hệ</h3>
-    <p>Email: tranducleminh291109@gmail.com</p>
-    <p>Facebook: Trần Đức Lê Minh</p>
+    <h3>📬 Liên hệ</h3>
+    <div class="contact-info">
+      <p>Email: <span>tranducleminh291109@gmail.com</span></p>
+      <p>Facebook: <span>Trần Đức Lê Minh</span></p>
+    </div>
   </div>
 
 </div>
@@ -227,25 +241,41 @@
 
 <script>
   /* ===== TAB LOGIC ===== */
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      // 1. Xóa active ở tất cả button và content
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
 
+      // 2. Thêm active vào button được click
       btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
+      
+      // 3. Hiển thị content tương ứng
+      const targetId = btn.dataset.tab;
+      document.getElementById(targetId).classList.add('active');
     });
   });
 
-  /* ===== ACCORDION LEVEL 1 ===== */
+  /* ===== ACCORDION LOGIC ===== */
+  // Level 1: Main Categories
   document.querySelectorAll('.accordion-title').forEach(title => {
-    title.addEventListener('click', () => {
-      const content = title.nextElementSibling;
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    title.addEventListener('click', function() {
+      this.classList.toggle('open'); // Để đổi icon +/-
+      const content = this.nextElementSibling;
+      
+      // Hiệu ứng trượt đơn giản
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
     });
   });
 
-  /* ===== ACCORDION LEVEL 2 ===== */
+  // Level 2: Sub Items
   document.querySelectorAll('.sub-title').forEach(title => {
     title.addEventListener('click', () => {
       const content = title.nextElementSibling;
@@ -253,7 +283,7 @@
     });
   });
 
-  /* ===== DISABLE RIGHT CLICK ===== */
+  /* ===== DISABLE RIGHT CLICK (Tùy chọn) ===== */
   document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 
