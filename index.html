@@ -80,68 +80,71 @@
   <p>Phân loại Lossy và Lossless</p>
 </header>
 
+<nav>
+  <button class="tab-btn active" data-tab="audio">Audio</button>
+  <button class="tab-btn" data-tab="about">About Me</button>
+</nav>
 <div class="container">
+   <div id="audio" class="tab-content active">
+    <div class="accordion-title">Lossy Audio</div>
+    <div class="accordion-content">
 
-  <!-- 🔹 LOSSY -->
-  <div class="accordion-title">Lossy Audio</div>
-  <div class="accordion-content">
+      <p>
+        Định dạng lossy là phương pháp nén dữ liệu kỹ thuật số (âm thanh, hình ảnh) làm giảm dung lượng đáng kể bằng cách loại bỏ các thông tin, chi tiết mà con người khó nhận biết được. Quá trình này không thể khôi phục lại dữ liệu gốc hoàn toàn, nhưng tối ưu hóa không gian lưu trữ và tốc độ truyền tả
+      </p>
 
-    <p>
-      Định dạng lossy là phương pháp nén dữ liệu kỹ thuật số (âm thanh, hình ảnh) làm giảm dung lượng đáng kể bằng cách loại bỏ các thông tin, chi tiết mà con người khó nhận biết được. Quá trình này không thể khôi phục lại dữ liệu gốc hoàn toàn, nhưng tối ưu hóa không gian lưu trữ và tốc độ truyền tả
-    </p>
+      <div class="sub-title">MP3</div>
+      <div class="sub-content">
+        <p>MP3 là định dạng nén âm thanh kỹ thuật số phổ biến nhất hiện nay, giúp giảm đáng kể dung lượng tệp tin (gấp nhiều lần) trong khi vẫn đảm bảo chất lượng gần tương đương CD. Nó hoạt động bằng cách loại bỏ các tần số âm thanh mà tai người khó nghe thấy, giúp việc lưu trữ và chia sẻ trên internet, điện thoại, máy nghe nhạc dễ dàng hơn. </p>
+      </div>
 
-    <div class="sub-title">MP3</div>
-    <div class="sub-content">
-      <p>MP3 là định dạng nén âm thanh kỹ thuật số phổ biến nhất hiện nay, giúp giảm đáng kể dung lượng tệp tin (gấp nhiều lần) trong khi vẫn đảm bảo chất lượng gần tương đương CD. Nó hoạt động bằng cách loại bỏ các tần số âm thanh mà tai người khó nghe thấy, giúp việc lưu trữ và chia sẻ trên internet, điện thoại, máy nghe nhạc dễ dàng hơn. </p>
+      <div class="sub-title">AAC</div>
+      <div class="sub-content">
+        <p>AAC (Advanced Audio Coding) là định dạng nén âm thanh kỹ thuật số lossy thế hệ mới, được thiết kế làm tiêu chuẩn thay thế MP3. Nó cung cấp chất lượng âm thanh cao hơn, chi tiết hơn ở cùng tốc độ bit (bitrate) so với MP3, giúp tối ưu hóa dung lượng lưu trữ. AAC là định dạng mặc định cho YouTube, Apple Music, iTunes, và các thiết bị iOS/Android.</p>
+      </div>
+
+      <div class="sub-title">OGG / OPUS</div>
+      <div class="sub-content">
+        <p>OGG (Vorbis): Là một định dạng bao (container) đa phương tiện mã nguồn mở và miễn phí, không bị giới hạn bởi bằng sáng chế. Nó thường đi kèm với codec Vorbis để lưu trữ âm thanh chất lượng tốt ở dung lượng thấp, là giải pháp thay thế phổ biến cho MP3.</p>
+        <p>OPUS: Là codec âm thanh hiện đại, mạnh mẽ, được thiết kế cho các ứng dụng Internet thời gian thực (như gọi thoại, phát trực tuyến). Opus kết hợp ưu điểm của SILK (giọng nói) và CELT (âm nhạc) để cung cấp chất lượng cao, độ trễ rất thấp (5-66.5ms) và bitrate linh hoạt.</p>
+      </div>
+
+      <div class="sub-title">WMA</div>
+      <div class="sub-content">
+        <p>WMA (Windows Media Audio) là định dạng tệp âm thanh số do Microsoft phát triển, dùng để nén và lưu trữ nhạc chất lượng cao với kích thước nhỏ gọn, cạnh tranh trực tiếp với MP3, hiện nay ít phổ biến so với MP3 và AAC.</p>
+      </div>
+
     </div>
 
-    <div class="sub-title">AAC</div>
-    <div class="sub-content">
-      <p>AAC (Advanced Audio Coding) là định dạng nén âm thanh kỹ thuật số lossy thế hệ mới, được thiết kế làm tiêu chuẩn thay thế MP3. Nó cung cấp chất lượng âm thanh cao hơn, chi tiết hơn ở cùng tốc độ bit (bitrate) so với MP3, giúp tối ưu hóa dung lượng lưu trữ. AAC là định dạng mặc định cho YouTube, Apple Music, iTunes, và các thiết bị iOS/Android.</p>
+    <!-- 🔹 LOSSLESS -->
+    <div class="accordion-title">Lossless Audio</div>
+    <div class="accordion-content">
+
+      <p>
+        Lossless là định dạng nén dữ liệu mà không làm mất đi bất kỳ thông tin gốc nào, cho phép tái tạo lại bản gốc hoàn hảo sau khi giải nén, mang lại chất lượng cao nhất, trái ngược với định dạng lossy (mất mát) như MP3 chỉ giảm kích thước bằng cách loại bỏ dữ liệu ít quan trọng, làm giảm chất lượng. Các file nhạc Lossless phổ biến có dung lượng lớn hơn nhưng giữ trọn vẹn chi tiết, sắc thái, độ động như bản thu gốc, thích hợp cho người yêu âm nhạc và thiết bị chuyên nghiệp.
+      </p>
+
+      <div class="sub-title">FLAC/ALAC</div>
+      <div class="sub-content">
+        <p>FLAC (Free Lossless Audio Codec) và ALAC (Apple Lossless Audio Codec) là hai định dạng âm thanh nén không mất dữ liệu (lossless), cho phép giảm dung lượng tệp tin xuống khoảng 50-60% so với gốc (WAV/AIFF) mà không làm giảm chất lượng âm thanh, giữ nguyên chất lượng CD (16-bit/44.1kHz) hoặc Hi-Res (24-bit/96kHz trở lên). FLAC (mã nguồn mở) được ưa chuộng rộng rãi hơn, nén tốt hơn, trong khi ALAC (của Apple) tối ưu cho hệ sinh thái Apple (iPhone, iTunes) với kích thước lớn hơn một chút.  </p>
+      </div>
+
+      <div class="sub-title">WAV / AIFF</div>
+      <div class="sub-content">
+        <p>WAV và AIFF là hai định dạng tệp âm thanh kỹ thuật số không nén (uncompressed), chất lượng cao (lossless), thường được sử dụng cho âm thanh chuyên nghiệp, thu âm và đĩa CD. WAV (.wav) do Microsoft/IBM phát triển phổ biến trên Windows, trong khi AIFF (.aiff) do Apple phát triển cho macOS. Cả hai cung cấp độ trung thực tuyệt đối, tương đương nhau, nhưng có dung lượng rất lớn. </p>
+      </div>
+
+      <div class="sub-title">APE</div>
+      <div class="sub-content">
+        <p>APE (Monkey's Audio) là định dạng nén âm thanh chất lượng cao (lossless) giúp giảm dung lượng tệp xuống khoảng một nửa mà không làm mất bất kỳ dữ liệu gốc nào. Định dạng này nổi tiếng trong cộng đồng âm thanh chất lượng cao (audiophile) vì khả năng giữ nguyên chất lượng CD gốc, thường đi kèm tệp .cue để phân chia bài hát. </p>
+      </div>
+
+      <div class="sub-title">DSD</div>
+      <div class="sub-content">
+        <p>DSD (Direct Stream Digital) được coi là định dạng lossless (không mất dữ liệu) cao cấp, thậm chí là định dạng có chất lượng âm thanh tốt nhất hiện nay, mang lại trải nghiệm chân thực, analog. DSD sử dụng công nghệ 1-bit với tần số lấy mẫu rất cao, khác biệt hoàn toàn với PCM truyền thống (như FLAC, WAV) và thường được dùng cho các bản thu SACD chất lượng cao. </p>
+      </div>
+
     </div>
-
-    <div class="sub-title">OGG / OPUS</div>
-    <div class="sub-content">
-      <p>OGG (Vorbis): Là một định dạng bao (container) đa phương tiện mã nguồn mở và miễn phí, không bị giới hạn bởi bằng sáng chế. Nó thường đi kèm với codec Vorbis để lưu trữ âm thanh chất lượng tốt ở dung lượng thấp, là giải pháp thay thế phổ biến cho MP3.</p>
-      <p>OPUS: Là codec âm thanh hiện đại, mạnh mẽ, được thiết kế cho các ứng dụng Internet thời gian thực (như gọi thoại, phát trực tuyến). Opus kết hợp ưu điểm của SILK (giọng nói) và CELT (âm nhạc) để cung cấp chất lượng cao, độ trễ rất thấp (5-66.5ms) và bitrate linh hoạt.</p>
-    </div>
-
-    <div class="sub-title">WMA</div>
-    <div class="sub-content">
-      <p>WMA (Windows Media Audio) là định dạng tệp âm thanh số do Microsoft phát triển, dùng để nén và lưu trữ nhạc chất lượng cao với kích thước nhỏ gọn, cạnh tranh trực tiếp với MP3, hiện nay ít phổ biến so với MP3 và AAC.</p>
-    </div>
-
-  </div>
-
-  <!-- 🔹 LOSSLESS -->
-  <div class="accordion-title">Lossless Audio</div>
-  <div class="accordion-content">
-
-    <p>
-      Lossless là định dạng nén dữ liệu mà không làm mất đi bất kỳ thông tin gốc nào, cho phép tái tạo lại bản gốc hoàn hảo sau khi giải nén, mang lại chất lượng cao nhất, trái ngược với định dạng lossy (mất mát) như MP3 chỉ giảm kích thước bằng cách loại bỏ dữ liệu ít quan trọng, làm giảm chất lượng. Các file nhạc Lossless phổ biến có dung lượng lớn hơn nhưng giữ trọn vẹn chi tiết, sắc thái, độ động như bản thu gốc, thích hợp cho người yêu âm nhạc và thiết bị chuyên nghiệp.
-    </p>
-
-    <div class="sub-title">FLAC/ALAC</div>
-    <div class="sub-content">
-      <p>FLAC (Free Lossless Audio Codec) và ALAC (Apple Lossless Audio Codec) là hai định dạng âm thanh nén không mất dữ liệu (lossless), cho phép giảm dung lượng tệp tin xuống khoảng 50-60% so với gốc (WAV/AIFF) mà không làm giảm chất lượng âm thanh, giữ nguyên chất lượng CD (16-bit/44.1kHz) hoặc Hi-Res (24-bit/96kHz trở lên). FLAC (mã nguồn mở) được ưa chuộng rộng rãi hơn, nén tốt hơn, trong khi ALAC (của Apple) tối ưu cho hệ sinh thái Apple (iPhone, iTunes) với kích thước lớn hơn một chút.  </p>
-    </div>
-
-    <div class="sub-title">WAV / AIFF</div>
-    <div class="sub-content">
-      <p>WAV và AIFF là hai định dạng tệp âm thanh kỹ thuật số không nén (uncompressed), chất lượng cao (lossless), thường được sử dụng cho âm thanh chuyên nghiệp, thu âm và đĩa CD. WAV (.wav) do Microsoft/IBM phát triển phổ biến trên Windows, trong khi AIFF (.aiff) do Apple phát triển cho macOS. Cả hai cung cấp độ trung thực tuyệt đối, tương đương nhau, nhưng có dung lượng rất lớn. </p>
-    </div>
-
-    <div class="sub-title">APE</div>
-    <div class="sub-content">
-      <p>APE (Monkey's Audio) là định dạng nén âm thanh chất lượng cao (lossless) giúp giảm dung lượng tệp xuống khoảng một nửa mà không làm mất bất kỳ dữ liệu gốc nào. Định dạng này nổi tiếng trong cộng đồng âm thanh chất lượng cao (audiophile) vì khả năng giữ nguyên chất lượng CD gốc, thường đi kèm tệp .cue để phân chia bài hát. </p>
-    </div>
-
-    <div class="sub-title">DSD</div>
-    <div class="sub-content">
-      <p>DSD (Direct Stream Digital) được coi là định dạng lossless (không mất dữ liệu) cao cấp, thậm chí là định dạng có chất lượng âm thanh tốt nhất hiện nay, mang lại trải nghiệm chân thực, analog. DSD sử dụng công nghệ 1-bit với tần số lấy mẫu rất cao, khác biệt hoàn toàn với PCM truyền thống (như FLAC, WAV) và thường được dùng cho các bản thu SACD chất lượng cao. </p>
-    </div>
-
-  </div>
    
    <div id="about" class="tab-content">
 
@@ -180,6 +183,18 @@
 </footer>
 
 <script>
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-content");
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabButtons.forEach(b => b.classList.remove("active"));
+      tabs.forEach(t => t.classList.remove("active"));
+
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
   /* Accordion cấp 1 */
   document.querySelectorAll(".accordion-title").forEach(title => {
     title.addEventListener("click", () => {
