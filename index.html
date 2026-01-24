@@ -1,40 +1,87 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Định dạng Audio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      color: #333;
+    /* ===== RESET & BASE ===== */
+    * {
+      box-sizing: border-box;
     }
 
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
     header {
       background: #1e1e1e;
-      color: white;
-      padding: 30px;
+      color: #fff;
+      padding: 30px 20px;
       text-align: center;
     }
 
+    header h1 {
+      margin: 0 0 10px;
+    }
+
+    /* ===== TABS ===== */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background: #ddd;
+    }
+
+    .tab-btn {
+      padding: 14px 30px;
+      border: none;
+      background: #ccc;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: #bbb;
+    }
+
+    .tab-btn.active {
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    /* ===== CONTAINER ===== */
     .container {
       max-width: 900px;
       margin: 30px auto;
-      background: white;
+      background: #fff;
       padding: 30px;
       border-radius: 8px;
     }
 
-    /* Accordion chung */
+    /* ===== TAB CONTENT ===== */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ===== ACCORDION ===== */
     .accordion-title {
       padding: 15px;
       cursor: pointer;
       background: #eaeaea;
       font-weight: bold;
       border-bottom: 1px solid #ccc;
+      transition: background 0.2s;
     }
 
     .accordion-title:hover {
@@ -47,7 +94,7 @@
       background: #fafafa;
     }
 
-    /* Accordion cấp con */
+    /* ===== SUB ACCORDION ===== */
     .sub-title {
       padding: 10px;
       margin-top: 10px;
@@ -64,6 +111,7 @@
       border-left: 4px solid #aaa;
     }
 
+    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 20px;
@@ -77,15 +125,21 @@
 
 <header>
   <h1>Các định dạng Audio</h1>
-  <p>Phân loại Lossy và Lossless</p>
+  <p>Phân loại Lossy & Lossless</p>
 </header>
 
-<nav>
-  <button class="tab-btn active" data-tab="audio">Audio</button>
-  <button class="tab-btn" data-tab="about">About Me</button>
-</nav>
+<!-- ===== TAB BUTTONS ===== -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="audio">Định dạng âm thanh</button>
+  <button class="tab-btn" data-tab="about">About me</button>
+</div>
+
 <div class="container">
-   <div id="audio" class="tab-content active">
+
+  <!-- ===== AUDIO TAB ===== -->
+  <div id="audio" class="tab-content active">
+
+<!-- 🔹 LOSSY -->
     <div class="accordion-title">Lossy Audio</div>
     <div class="accordion-content">
 
@@ -144,77 +198,64 @@
         <p>DSD (Direct Stream Digital) được coi là định dạng lossless (không mất dữ liệu) cao cấp, thậm chí là định dạng có chất lượng âm thanh tốt nhất hiện nay, mang lại trải nghiệm chân thực, analog. DSD sử dụng công nghệ 1-bit với tần số lấy mẫu rất cao, khác biệt hoàn toàn với PCM truyền thống (như FLAC, WAV) và thường được dùng cho các bản thu SACD chất lượng cao. </p>
       </div>
 
-    </div>
-   
-   <div id="about" class="tab-content">
+  </div>
 
+  <!-- ===== ABOUT TAB ===== -->
+  <div id="about" class="tab-content">
     <h2>Giới thiệu bản thân</h2>
-
-    <p>
-      <!-- Bạn tự viết -->
-      Xin chào, tôi là Lê Minh - học sinh chuyên toán khóa K41 trường THPT Chuyên Lê Quý Đôn - Đà Nẵng
-    </p>
+    <p>Xin chào, tôi là Lê Minh – học sinh chuyên Toán K41, THPT Chuyên Lê Quý Đôn – Đà Nẵng.</p>
 
     <h3>Đam mê</h3>
     <ul>
-      <li>Âm thanh & audio chất lượng cao</li>
-      <li>Các định dạng nhạc, mastering, lưu trữ</li>
-      <li>Công nghệ thông tin, lập trình, AI</li>
+      <li>Âm thanh & Hi-Fi</li>
+      <li>Định dạng nhạc, mastering</li>
+      <li>Công nghệ, lập trình, AI</li>
     </ul>
 
-    <h3>Mục tiêu của website</h3>
-    <p>
-      Website này được tạo ra nhằm chia sẻ kiến thức, quan điểm cá nhân
-      về âm thanh và nhạc số.
-    </p>
+    <h3>Mục tiêu website</h3>
+    <p>Chia sẻ kiến thức và quan điểm cá nhân về âm thanh và nhạc số.</p>
 
     <h3>Liên hệ</h3>
-    <p>
-      Email: tranducleminh291109@gmail.com
-    </p>
-    <p>
-      FB: Trần Đức Lê Minh
-
+    <p>Email: tranducleminh291109@gmail.com</p>
+    <p>Facebook: Trần Đức Lê Minh</p>
   </div>
+
 </div>
 
 <footer>
-  © 2026 - Minh Tran - All rights reserved.
+  © 2026 – Minh Tran – All rights reserved.
 </footer>
 
 <script>
-  const tabButtons = document.querySelectorAll(".tab-btn");
-  const tabs = document.querySelectorAll(".tab-content");
+  /* ===== TAB LOGIC ===== */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 
-  tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      tabButtons.forEach(b => b.classList.remove("active"));
-      tabs.forEach(t => t.classList.remove("active"));
-
-      btn.classList.add("active");
-      document.getElementById(btn.dataset.tab).classList.add("active");
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
     });
   });
-  /* Accordion cấp 1 */
-  document.querySelectorAll(".accordion-title").forEach(title => {
-    title.addEventListener("click", () => {
+
+  /* ===== ACCORDION LEVEL 1 ===== */
+  document.querySelectorAll('.accordion-title').forEach(title => {
+    title.addEventListener('click', () => {
       const content = title.nextElementSibling;
-      content.style.display =
-        content.style.display === "block" ? "none" : "block";
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
     });
   });
 
-  /* Accordion cấp 2 */
-  document.querySelectorAll(".sub-title").forEach(title => {
-    title.addEventListener("click", () => {
+  /* ===== ACCORDION LEVEL 2 ===== */
+  document.querySelectorAll('.sub-title').forEach(title => {
+    title.addEventListener('click', () => {
       const content = title.nextElementSibling;
-      content.style.display =
-        content.style.display === "block" ? "none" : "block";
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
     });
   });
 
-  /* Chặn chuột phải */
-  document.addEventListener("contextmenu", e => e.preventDefault());
+  /* ===== DISABLE RIGHT CLICK ===== */
+  document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 
 </body>
