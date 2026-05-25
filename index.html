@@ -376,6 +376,25 @@
 <script>
   document.addEventListener('contextmenu', e => e.preventDefault());
 
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12') {
+      e.preventDefault();
+      return false;
+    }
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+      e.preventDefault();
+      return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+      e.preventDefault();
+      return false;
+    }
+    if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
   const canvas = document.getElementById('canvas-interactive');
   const ctx = canvas.getContext('2d');
 
@@ -538,8 +557,8 @@
     const detailEl = document.getElementById('terminal-ip-detail');
     
     try {
-      const response = await fetch('https://ipapi.co/json/');
-      if (!response.ok) throw new Error('API request failed');
+      const response = await fetch('https://ipwho.is/');
+      if (!response.ok) throw new Error('Primary API failed');
       
       const data = await response.json();
       
@@ -548,8 +567,8 @@
         
         let output = "";
         output += `Địa chỉ IP : ${data.ip || 'Unknown'}\n`;
-        output += `Nhà mạng    : ${data.org || 'Unknown'}\n`;
-        output += `Vị trí      : ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Vietnam'}\n`;
+        output += `Nhà mạng    : ${data.connection?.isp || data.connection?.org || 'Unknown'}\n`;
+        output += `Vị trí      : ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country || 'Vietnam'}\n`;
         output += `Hệ tọa độ   : Lat ${data.latitude || '0'}, Lon ${data.longitude || '0'}`;
 
         setTimeout(() => {
@@ -560,17 +579,37 @@
 
     } catch (error) {
       try {
-        const responseFallback = await fetch('https://api.ipify.org?format=json');
+        const responseFallback = await fetch('https://ipapi.co/json/');
+        if (!responseFallback.ok) throw new Error('Fallback API failed');
         const dataFallback = await responseFallback.json();
         
         setTimeout(() => {
-          statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Kết nối bị giới hạn. IP được phát hiện:";
-          detailEl.innerHTML = `Địa chỉ IP : ${dataFallback.ip || 'Unknown'}\nNhà mạng    : Local Network Provider\nVị trí      : Da Nang, Vietnam (Ước tính)`;
+          statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Đã kết nối thành công (Dự phòng)!";
+          
+          let output = "";
+          output += `Địa chỉ IP : ${dataFallback.ip || 'Unknown'}\n`;
+          output += `Nhà mạng    : ${dataFallback.org || 'Unknown'}\n`;
+          output += `Vị trí      : ${dataFallback.city || 'Unknown'}, ${dataFallback.region || 'Unknown'}, ${dataFallback.country_name || 'Vietnam'}\n`;
+          output += `Hệ tọa độ   : Lat ${dataFallback.latitude || '0'}, Lon ${dataFallback.longitude || '0'}`;
+
+          setTimeout(() => {
+            detailEl.innerHTML = output;
+          }, 600);
         }, 1000);
       } catch (fallbackError) {
-        setTimeout(() => {
-          statusEl.innerHTML = "[ <span style='color: var(--accent-red)'>ERROR</span> ] Không thể dò tìm IP. Vui lòng kiểm tra kết nối internet.";
-        }, 1000);
+        try {
+          const responseLast = await fetch('https://api.ipify.org?format=json');
+          const dataLast = await responseLast.json();
+          
+          setTimeout(() => {
+            statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Kết nối bị giới hạn. IP được phát hiện:";
+            detailEl.innerHTML = `Địa chỉ IP : ${dataLast.ip || 'Unknown'}\nNhà mạng    : Local Network Provider\nVị trí      : Da Nang, Vietnam (Ước tính)`;
+          }, 1000);
+        } catch (lastError) {
+          setTimeout(() => {
+            statusEl.innerHTML = "[ <span style='color: var(--accent-red)'>ERROR</span> ] Không thể dò tìm IP. Vui lòng kiểm tra kết nối internet.";
+          }, 1000);
+        }
       }
     }
   }
