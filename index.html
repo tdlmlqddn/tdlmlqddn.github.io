@@ -37,6 +37,40 @@
       background-size: 30px 30px;
     }
 
+    #boot-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #050508;
+      color: var(--accent-green);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      padding: 30px;
+      z-index: 99999;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      pointer-events: all;
+    }
+
+    .boot-line {
+      opacity: 0;
+      transform: translateY(5px);
+      animation: bootFadeIn 0.1s forwards;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    @keyframes bootFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     header {
       position: relative;
       height: 280px;
@@ -132,6 +166,16 @@
       font-weight: 600;
     }
 
+    .terminal-subtitle {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      opacity: 0.75;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
     .about-card p {
       color: var(--text-main);
       font-size: 1.05rem;
@@ -210,9 +254,9 @@
     }
 
     .ip-terminal {
-      margin-top: 35px;
+      margin-top: 15px;
       background: #07080c;
-      border: 1px solid rgba(57, 255, 20, 0.15);
+      border: 1px solid rgba(57, 255, 20, 0.25);
       border-radius: 10px;
       padding: 18px 20px;
       font-family: 'Courier New', Courier, monospace;
@@ -220,6 +264,7 @@
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 5px 15px rgba(0, 0, 0, 0.5);
       position: relative;
       overflow: hidden;
+      cursor: text;
     }
 
     .ip-terminal-header {
@@ -231,6 +276,7 @@
       margin-bottom: 12px;
       color: var(--text-muted);
       font-size: 0.75rem;
+      user-select: none;
     }
 
     .terminal-dots {
@@ -266,23 +312,27 @@
 
     .terminal-prompt {
       color: #888;
+      user-select: none;
     }
 
-    .terminal-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 15px;
-      background: var(--accent-green);
-      animation: blink 1s step-end infinite;
-      vertical-align: middle;
-      margin-left: 3px;
+    .terminal-input-container {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
     }
 
-    @keyframes blink {
-      from, to { background-color: transparent }
-      50% { background-color: var(--accent-green) }
+    .terminal-input-field {
+      background: transparent;
+      border: none;
+      color: var(--accent-green);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      outline: none;
+      flex: 1;
+      margin-left: 6px;
+      caret-color: var(--accent-green);
     }
-    
+
     footer {
       text-align: center;
       padding: 40px;
@@ -319,6 +369,8 @@
 
 <body>
 
+<div id="boot-overlay"></div>
+
 <header>
   <canvas id="canvas-interactive"></canvas>
   <div class="header-content">
@@ -337,7 +389,7 @@
     <ul>
       <li><strong>🎧 Âm thanh:</strong> Nghe nhạc, tìm hiểu về DAC, AMP, tai nghe, các chuẩn mastering. Là một Audiophile thực thụ.</li>
       <li><strong>💻 Công nghệ:</strong> Lập trình, hệ điều hành Linux, sysadmin, mạng máy tính (networking), an toàn thông tin (cybersecurity) và AI.</li>
-      <li><strong>📷 Nhiếp ảnh:</strong> Chụp ảnh, quay phim, hậu kì.</li>
+      <li><strong>📷 Nhiếp ảnh:</strong> Sáng tạo góc máy, ghi lại khoảnh khắc, quay phim và chỉnh sửa hậu kỳ chuyên nghiệp.</li>
       <li><strong>🏸 Thể thao:</strong> Rèn luyện sức khỏe, tốc độ và sự linh hoạt với bộ môn Cầu lông.</li>
     </ul>
 
@@ -347,22 +399,29 @@
       <p>Facebook: <span>Trần Đức Lê Minh</span></p>
     </div>
 
-    <h3>📡 Trạng thái Hệ thống</h3>
-    <div class="ip-terminal">
+    <h3>⚡ CORE NETWORK SHELL CONSOLE</h3>
+    <span class="terminal-subtitle">/* Feel free to interact with the Linux terminal below. Type "help" to view available commands. */</span>
+
+    <div class="ip-terminal" id="terminal-wrapper">
       <div class="ip-terminal-header">
         <div class="terminal-dots">
           <span class="terminal-dot dot-red"></span>
           <span class="terminal-dot dot-yellow"></span>
           <span class="terminal-dot dot-green"></span>
         </div>
-        <span class="terminal-title">visitor_monitor.sh</span>
+        <span class="terminal-title">leminh_shell.sh</span>
         <span>bash</span>
       </div>
-      <div class="ip-terminal-body" id="terminal-content">
-        <div class="terminal-line"><span class="terminal-prompt">leminh@server:~$</span> ./check_visitor_info.sh</div>
-        <div class="terminal-line" id="terminal-status">Đang thiết lập kết nối đến máy khách...</div>
-        <div class="terminal-line" id="terminal-ip-detail"></div>
-        <div class="terminal-line" id="terminal-cursor-line"><span class="terminal-prompt">leminh@server:~$</span><span class="terminal-cursor"></span></div>
+      <div class="ip-terminal-body">
+        <div id="terminal-history">
+          <div class="terminal-line"><span class="terminal-prompt">leminh@server:~$</span> ./check_visitor_info.sh</div>
+          <div class="terminal-line" id="terminal-status">Establishing connection to client...</div>
+          <div class="terminal-line" id="terminal-ip-detail"></div>
+        </div>
+        <div class="terminal-input-container">
+          <span class="terminal-prompt">leminh@server:~$</span>
+          <input type="text" class="terminal-input-field" id="terminal-input" autocomplete="off" spellcheck="false" />
+        </div>
       </div>
     </div>
   </div>
@@ -394,6 +453,44 @@
       return false;
     }
   });
+
+  const bootOverlay = document.getElementById('boot-overlay');
+  const bootLogs = [
+    " leminhOS v4.1-lts-amd64_generic initialization process",
+    " [  OK  ] Loading Linux Kernel modules...",
+    " [  OK  ] Mounting root filesystem (/dev/sda2) with read-only state",
+    " [ INFO ] Initializing sound modules: ALSA driver 1.2.8 & Audiophile DSP profiles...",
+    " [  OK  ] Checking network hardware interfaces... (wlan0: UP)",
+    " [  OK  ] Establishing secure firewall protocol rules via iptables",
+    " [  OK  ] Fail2ban intrusion-prevention system activated",
+    " [ INFO ] Loading student profile database: Le Quy Don Gifted High School - Da Nang",
+    " [  OK  ] Mathematics major analytical matrix solver module loaded successfully",
+    " [  OK  ] Compiling visual portfolio graphic interface",
+    " [ INFO ] Starting main user interface shell..."
+  ];
+
+  let currentBootIndex = 0;
+  function runBootSequence() {
+    if (currentBootIndex < bootLogs.length) {
+      const line = document.createElement('div');
+      line.className = 'boot-line';
+      line.innerText = bootLogs[currentBootIndex];
+      bootOverlay.appendChild(line);
+      bootOverlay.scrollTop = bootOverlay.scrollHeight;
+      currentBootIndex++;
+      setTimeout(runBootSequence, Math.random() * 120 + 80);
+    } else {
+      setTimeout(() => {
+        bootOverlay.style.opacity = '0';
+        bootOverlay.style.pointerEvents = 'none';
+        setTimeout(() => {
+          bootOverlay.remove();
+        }, 300);
+      }, 500);
+    }
+  }
+
+  window.addEventListener('load', runBootSequence);
 
   const canvas = document.getElementById('canvas-interactive');
   const ctx = canvas.getContext('2d');
@@ -552,6 +649,16 @@
 
   animate();
 
+  let ipCachedData = {
+    ip: 'Unknown',
+    connection: { isp: 'Unknown' },
+    city: 'Unknown',
+    region: 'Unknown',
+    country: 'Vietnam',
+    latitude: '0',
+    longitude: '0'
+  };
+
   async function fetchVisitorInfo() {
     const statusEl = document.getElementById('terminal-status');
     const detailEl = document.getElementById('terminal-ip-detail');
@@ -561,15 +668,16 @@
       if (!response.ok) throw new Error('Primary API failed');
       
       const data = await response.json();
+      ipCachedData = data;
       
       setTimeout(() => {
-        statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Đã kết nối thành công!";
+        statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Connection established successfully!";
         
         let output = "";
-        output += `Địa chỉ IP : ${data.ip || 'Unknown'}\n`;
-        output += `Nhà mạng    : ${data.connection?.isp || data.connection?.org || 'Unknown'}\n`;
-        output += `Vị trí      : ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country || 'Vietnam'}\n`;
-        output += `Hệ tọa độ   : Lat ${data.latitude || '0'}, Lon ${data.longitude || '0'}`;
+        output += `IP Address  : ${data.ip || 'Unknown'}\n`;
+        output += `ISP / Net   : ${data.connection?.isp || data.connection?.org || 'Unknown'}\n`;
+        output += `Location    : ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country || 'Vietnam'}\n`;
+        output += `Coordinates : Lat ${data.latitude || '0'}, Lon ${data.longitude || '0'}`;
 
         setTimeout(() => {
           detailEl.innerHTML = output;
@@ -582,15 +690,24 @@
         const responseFallback = await fetch('https://ipapi.co/json/');
         if (!responseFallback.ok) throw new Error('Fallback API failed');
         const dataFallback = await responseFallback.json();
+        ipCachedData = {
+          ip: dataFallback.ip,
+          connection: { isp: dataFallback.org },
+          city: dataFallback.city,
+          region: dataFallback.region,
+          country: dataFallback.country_name,
+          latitude: dataFallback.latitude,
+          longitude: dataFallback.longitude
+        };
         
         setTimeout(() => {
-          statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Đã kết nối thành công (Dự phòng)!";
+          statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Connection established successfully (Fallback)!";
           
           let output = "";
-          output += `Địa chỉ IP : ${dataFallback.ip || 'Unknown'}\n`;
-          output += `Nhà mạng    : ${dataFallback.org || 'Unknown'}\n`;
-          output += `Vị trí      : ${dataFallback.city || 'Unknown'}, ${dataFallback.region || 'Unknown'}, ${dataFallback.country_name || 'Vietnam'}\n`;
-          output += `Hệ tọa độ   : Lat ${dataFallback.latitude || '0'}, Lon ${dataFallback.longitude || '0'}`;
+          output += `IP Address  : ${dataFallback.ip || 'Unknown'}\n`;
+          output += `ISP / Net   : ${dataFallback.org || 'Unknown'}\n`;
+          output += `Location    : ${dataFallback.city || 'Unknown'}, ${dataFallback.region || 'Unknown'}, ${dataFallback.country_name || 'Vietnam'}\n`;
+          output += `Coordinates : Lat ${dataFallback.latitude || '0'}, Lon ${dataFallback.longitude || '0'}`;
 
           setTimeout(() => {
             detailEl.innerHTML = output;
@@ -600,14 +717,15 @@
         try {
           const responseLast = await fetch('https://api.ipify.org?format=json');
           const dataLast = await responseLast.json();
+          ipCachedData.ip = dataLast.ip;
           
           setTimeout(() => {
-            statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Kết nối bị giới hạn. IP được phát hiện:";
-            detailEl.innerHTML = `Địa chỉ IP : ${dataLast.ip || 'Unknown'}\nNhà mạng    : Local Network Provider\nVị trí      : Da Nang, Vietnam (Ước tính)`;
+            statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Restricted connection. Detected IP:";
+            detailEl.innerHTML = `IP Address  : ${dataLast.ip || 'Unknown'}\nISP / Net   : Local Network Provider\nLocation    : Da Nang, Vietnam (Estimated)`;
           }, 1000);
         } catch (lastError) {
           setTimeout(() => {
-            statusEl.innerHTML = "[ <span style='color: var(--accent-red)'>ERROR</span> ] Không thể dò tìm IP. Vui lòng kiểm tra kết nối internet.";
+            statusEl.innerHTML = "[ <span style='color: var(--accent-red)'>ERROR</span> ] Failed to resolve IP. Please check your internet connection.";
           }, 1000);
         }
       }
@@ -615,6 +733,114 @@
   }
 
   window.addEventListener('load', fetchVisitorInfo);
+
+  const terminalWrapper = document.getElementById('terminal-wrapper');
+  const terminalInput = document.getElementById('terminal-input');
+  const terminalHistory = document.getElementById('terminal-history');
+
+  terminalWrapper.addEventListener('click', () => {
+    terminalInput.focus();
+  });
+
+  terminalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const commandText = terminalInput.value.trim();
+      terminalInput.value = '';
+
+      if (commandText === '') return;
+
+      const userCommandLine = document.createElement('div');
+      userCommandLine.className = 'terminal-line';
+      userCommandLine.innerHTML = `<span class="terminal-prompt">leminh@server:~$</span> ${commandText}`;
+      terminalHistory.appendChild(userCommandLine);
+
+      const responseLine = document.createElement('div');
+      responseLine.className = 'terminal-line';
+
+      const args = commandText.split(' ');
+      const cmd = args[0].toLowerCase();
+
+      switch(cmd) {
+        case 'help':
+          responseLine.innerHTML = "System specific commands:\n  neofetch  - Display system configuration & OS metrics\n  skills    - List core specialties & academic details\n  fail2ban  - Track real-time network security logs\n  matrix    - Launch matrix digital code rain\n  clear     - Clean terminal history buffer\n\nStandard Linux commands:\n  ls        - List directory contents (Try: ls -la)\n  cat       - Concatenate and display files (e.g. cat firewall.conf)\n  pwd       - Print working directory path\n  whoami    - Print active user ID\n  ip a      - Inspect network interfaces configuration\n  date      - Print current system date & time";
+          break;
+        case 'clear':
+          terminalHistory.innerHTML = '';
+          responseLine.innerHTML = "Terminal cleared.";
+          break;
+        case 'neofetch':
+          responseLine.innerHTML = `   .-.      <span style='color: var(--accent-cyan)'>leminh@server</span>\n  oo|       --------------\n /' '\\      OS: Debian GNU/Linux 13 (Trixie)\n(\\__/)     Host: THPT Chuyên Lê Quý Đôn - Đà Nẵng\n            Kernel: 7.0.0-rt-leminh\n            Uptime: 29 days, 11 hours\n            Shell: bash 5.2.21\n            Target: Chuyên Toán K41`;
+          break;
+        case 'skills':
+          responseLine.innerHTML = "<span style='color: var(--accent-cyan)'>[+] Mathematics:</span> Le Quy Don Math Major K41, Logical Analytics, Calculus\n<span style='color: var(--accent-cyan)'>[+] Tech & Sec :</span> Linux Systems, Shell Scripting, Networking, Cybersecurity, JS/Python\n<span style='color: var(--accent-cyan)'>[+] Audiophile :</span> Audio Mastering, Hi-Res Setup, DAC/AMP Tuning\n<span style='color: var(--accent-cyan)'>[+] Creativity :</span> Media Production, Editing, Creative Photography";
+          break;
+        case 'fail2ban':
+          let logs = "";
+          for(let i = 0; i < 4; i++) {
+            const randomIP = `${Math.floor(Math.random()*223)+1}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+            logs += `[Fail2ban] <span style='color: var(--accent-red)'>BANNED</span> IP: ${randomIP} - Warning: Brute-force SSH attack blocked.\n`;
+          }
+          logs += `[UFW Firewall] Rule set to DROP packets from non-local sync.`;
+          responseLine.innerHTML = logs;
+          break;
+        case 'matrix':
+          let matrixStream = "";
+          for(let r = 0; r < 5; r++) {
+            let chunk = "";
+            for(let c = 0; c < 45; c++) {
+              chunk += Math.random() > 0.5 ? "1" : "0";
+            }
+            matrixStream += chunk + "\n";
+          }
+          responseLine.innerHTML = `<span style='color: var(--accent-green)'>${matrixStream}</span>[INFO] Cryptographic verification complete. Encryption is active.`;
+          break;
+        case 'pwd':
+          responseLine.innerHTML = "/home/leminh";
+          break;
+        case 'whoami':
+          responseLine.innerHTML = "leminh";
+          break;
+        case 'date':
+          responseLine.innerHTML = new Date().toString();
+          break;
+        case 'ls':
+          if (args[1] === '-la' || args[1] === '-a' || args[1] === '-l') {
+            responseLine.innerHTML = "drwxr-xr-x  5 leminh leminh  4096 May 25 20:58 .\ndrwxr-xr-x  3 root   root    4096 May 01 00:00 ..\n-rw-r--r--  1 leminh leminh   142 May 25 20:58 firewall.conf\n-rw-------  1 leminh leminh    64 May 25 20:58 wireguard.key\ndrwxr-xr-x  2 leminh leminh  4096 May 25 20:58 pihole\n-rw-r--r--  1 leminh leminh  8412 May 25 20:58 classic_jazz.mp3";
+          } else {
+            responseLine.innerHTML = "<span style='color: var(--accent-blue)'>pihole</span>  classic_jazz.mp3  firewall.conf  wireguard.key";
+          }
+          break;
+        case 'cat':
+          const targetFile = args[1];
+          if (!targetFile) {
+            responseLine.innerHTML = "cat: missing operand. Usage: cat [filename]";
+          } else if (targetFile === 'firewall.conf') {
+            responseLine.innerHTML = "# UFW Configuration\nSTATUS=active\nDEFAULT_INPUT_POLICY=DROP\nDEFAULT_OUTPUT_POLICY=ACCEPT\nOPEN_PORTS=80,443,51820/udp";
+          } else if (targetFile === 'wireguard.key') {
+            responseLine.innerHTML = "eGg1S0pXN090Y0g5Mm1uNnA0cTNyN3M4dDl1MHYxdzI=";
+          } else if (targetFile === 'classic_jazz.mp3') {
+            responseLine.innerHTML = "cat: classic_jazz.mp3: Cannot display binary file contents in text terminal.";
+          } else if (targetFile === 'pihole') {
+            responseLine.innerHTML = "cat: pihole: Is a directory";
+          } else {
+            responseLine.innerHTML = `cat: ${targetFile}: No such file or directory`;
+          }
+          break;
+        case 'ip':
+          if (args[1] === 'a') {
+            responseLine.innerHTML = `eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n        inet ${ipCachedData.ip || '127.0.0.1'}  netmask 255.255.255.0\n        inet6 fe80::leminh:core/64  scope link\n        ether 4a:51:bc:92:ef:01  txqueuelen 1000  (Ethernet)\n        RX packets 912043  bytes 104291032\n        TX packets 542109  bytes 68102943\n\nlo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536\n        inet 127.0.0.1  netmask 255.0.0.0`;
+          } else {
+            responseLine.innerHTML = "Usage: ip a";
+          }
+          break;
+        default:
+          responseLine.innerHTML = `bash: ${cmd}: command not found. Type 'help' to see available commands.`;
+      }
+
+      terminalHistory.appendChild(responseLine);
+      terminalWrapper.scrollTop = terminalWrapper.scrollHeight;
+    }
+  });
 </script>
 
 </body>
