@@ -2,14 +2,14 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Định dạng Audio</title>
+  <title>Giới thiệu bản thân - Lê Minh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Arial, Helvetica, sans-serif; /* Font hiện đại hơn */
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
       background: #f5f5f5;
       color: #333;
       line-height: 1.6;
@@ -24,101 +24,23 @@
     header h1 { margin: 0 0 10px; font-weight: 300; letter-spacing: 1px; }
     header p { color: #aaa; margin: 0; }
 
-    .tabs {
-      display: flex;
-      justify-content: center;
-      background: #e0e0e0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .tab-btn {
-      padding: 15px 35px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      color: #555;
-      transition: all 0.3s;
-      border-bottom: 3px solid transparent;
-    }
-    .tab-btn:hover { background: #dcdcdc; color: #000; }
-    .tab-btn.active {
-      background: #fff;
-      color: #1e1e1e;
-      border-bottom: 3px solid #1e1e1e;
-    }
-
     .container {
-      max-width: 900px;
+      max-width: 700px;
       margin: 40px auto;
       background: #fff;
       padding: 40px;
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      min-height: 400px; 
     }
 
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tab-content.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .accordion-title {
-      padding: 18px;
-      margin-bottom: 5px;
-      cursor: pointer;
-      background: #f4f4f4;
-      font-weight: bold;
-      border-left: 5px solid #1e1e1e;
-      transition: background 0.2s;
-      position: relative;
-    }
-    .accordion-title:hover { background: #e9e9e9; }
-    .accordion-title::after {
-      content: '+';
-      position: absolute;
-      right: 20px;
-      font-size: 20px;
-      color: #777;
-    }
-    .accordion-title.open::after { content: '-'; }
-
-    .accordion-content { display: none; padding: 10px 20px 20px; }
-
-    .sub-title {
-      padding: 12px;
-      margin-top: 10px;
-      background: #fff;
-      border: 1px solid #eee;
-      cursor: pointer;
-      font-weight: 600;
-      color: #444;
-      display: flex;
-      justify-content: space-between;
-    }
-    .sub-title:hover { background: #fafafa; color: #000; border-color: #ccc; }
-    
-    .sub-content {
-      display: none;
-      padding: 15px;
-      background: #fdfdfd;
-      border-left: 3px solid #ccc;
-      margin-bottom: 15px;
-      font-size: 0.95em;
-      color: #555;
-    }
-    .about-card h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: #1e1e1e; }
+    .about-card h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: #1e1e1e; margin-top: 0; }
     .about-card h3 { color: #555; margin-top: 25px; }
     .about-card ul { list-style-type: square; padding-left: 20px; color: #444; }
     .about-card ul li { margin-bottom: 8px; }
+    
     .contact-info p { margin: 5px 0; font-weight: 500; }
     .contact-info span { color: #777; font-weight: normal; margin-left: 10px; }
+    
     footer {
       text-align: center;
       padding: 30px;
@@ -132,76 +54,13 @@
 <body>
 
 <header>
-  <h1>Các định dạng Audio</h1>
-  <p>Phân loại Lossy & Lossless</p>
+  <h1>Website Cá Nhân</h1>
+  <p>Xin chào, tôi là Lê Minh</p>
 </header>
-
-<div class="tabs">
-  <button class="tab-btn active" data-tab="audio">Định dạng âm thanh</button>
-  <button class="tab-btn" data-tab="about">About me</button>
-</div>
 
 <div class="container">
 
-  <div id="audio" class="tab-content active">
-
-    <div class="accordion-title">Lossy Audio (Nén có mất dữ liệu)</div>
-    <div class="accordion-content">
-      <p>
-        Định dạng lossy là phương pháp nén dữ liệu kỹ thuật số (âm thanh, hình ảnh) làm giảm dung lượng đáng kể bằng cách loại bỏ các thông tin, chi tiết mà con người khó nhận biết được.
-      </p>
-
-      <div class="sub-title">MP3 <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>MP3:</strong> Định dạng phổ biến nhất, giảm dung lượng gấp nhiều lần nhưng vẫn giữ chất lượng khá tốt. Hoạt động bằng cách cắt bỏ các tần số tai người khó nghe.</p>
-      </div>
-
-      <div class="sub-title">AAC <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>AAC:</strong> Kế thừa của MP3, chất lượng âm thanh tốt hơn ở cùng mức dung lượng. Là chuẩn của Apple (iTunes, Apple Music) và YouTube.</p>
-      </div>
-
-      <div class="sub-title">OGG / OPUS <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>OGG:</strong> Mã nguồn mở, miễn phí. Thường dùng trong Spotify.</p>
-        <p><strong>OPUS:</strong> Codec hiện đại, độ trễ cực thấp, dùng cho gọi thoại và stream thời gian thực.</p>
-      </div>
-
-      <div class="sub-title">WMA <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>WMA:</strong> Định dạng của Microsoft. Từng cạnh tranh với MP3 nhưng hiện nay ít phổ biến hơn.</p>
-      </div>
-    </div>
-
-    <div class="accordion-title">Lossless Audio (Nén không mất dữ liệu)</div>
-    <div class="accordion-content">
-      <p>
-        Lossless nén dữ liệu mà không làm mất bất kỳ thông tin gốc nào. Dung lượng lớn hơn Lossy nhưng chất lượng tương đương đĩa CD gốc hoặc phòng thu.
-      </p>
-
-      <div class="sub-title">FLAC / ALAC <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>FLAC:</strong> Mã nguồn mở, phổ biến nhất cho nhạc chất lượng cao, nén còn 50-60% dung lượng gốc.</p>
-        <p><strong>ALAC:</strong> Tương tự FLAC nhưng do Apple phát triển, tối ưu cho iPhone/Mac.</p>
-      </div>
-
-      <div class="sub-title">WAV / AIFF <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>WAV/AIFF:</strong> Không nén (Uncompressed). Giữ nguyên vẹn 100% dữ liệu thu âm nhưng dung lượng rất nặng.</p>
-      </div>
-
-      <div class="sub-title">APE <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>APE:</strong> Nén rất mạnh (file nhẹ hơn FLAC chút) nhưng tốn tài nguyên giải mã (pin CPU) hơn khi nghe.</p>
-      </div>
-
-      <div class="sub-title">DSD <span>▼</span></div>
-      <div class="sub-content">
-        <p><strong>DSD:</strong> Định dạng cao cấp sử dụng công nghệ 1-bit, tần số lấy mẫu cực cao, mang lại chất âm "Analog" nhất.</p>
-      </div>
-    </div>
-
-  </div> <div id="about" class="tab-content about-card">
+  <div class="about-card">
     <h2>Giới thiệu bản thân</h2>
     <p>Xin chào, tôi là <strong>Lê Minh</strong> – học sinh chuyên Toán K41, THPT Chuyên Lê Quý Đôn – Đà Nẵng.</p>
 
@@ -228,41 +87,6 @@
 </footer>
 
 <script>
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
-      btn.classList.add('active');
-      
-      const targetId = btn.dataset.tab;
-      document.getElementById(targetId).classList.add('active');
-    });
-  });
-
-  document.querySelectorAll('.accordion-title').forEach(title => {
-    title.addEventListener('click', function() {
-      this.classList.toggle('open'); // Để đổi icon +/-
-      const content = this.nextElementSibling;
-      
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-    });
-  });
-
-  document.querySelectorAll('.sub-title').forEach(title => {
-    title.addEventListener('click', () => {
-      const content = title.nextElementSibling;
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
-    });
-  });
-
   document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 
