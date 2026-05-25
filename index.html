@@ -721,7 +721,7 @@
           
           setTimeout(() => {
             statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Restricted connection. Detected IP:";
-            detailEl.innerHTML = ` Your IP Address  : ${dataLast.ip || 'Unknown'}\nISP / Net   : Local Network Provider\nLocation    : Da Nang, Vietnam (Estimated)`;
+            detailEl.innerHTML = `Your IP Address  : ${dataLast.ip || 'Unknown'}\nISP / Net   : Local Network Provider\nLocation    : Da Nang, Vietnam (Estimated)`;
           }, 1000);
         } catch (lastError) {
           setTimeout(() => {
