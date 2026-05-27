@@ -166,16 +166,6 @@
       font-weight: 600;
     }
 
-    .terminal-subtitle {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.85rem;
-      color: var(--accent-cyan);
-      opacity: 0.75;
-      margin-top: -10px;
-      margin-bottom: 20px;
-      display: block;
-    }
-
     .about-card p {
       color: var(--text-main);
       font-size: 1.05rem;
@@ -253,30 +243,37 @@
       color: var(--accent-cyan);
     }
 
-    .ip-terminal {
-      margin-top: 15px;
-      background: #07080c;
-      border: 1px solid rgba(57, 255, 20, 0.25);
-      border-radius: 10px;
-      padding: 18px 20px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.85rem;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 5px 15px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-      cursor: text;
+    .terminal-link-card {
+      text-decoration: none;
+      display: block;
+      margin-top: 25px;
     }
 
-    .ip-terminal-header {
+    .terminal-preview-container {
+      background: #07080c;
+      border: 1px solid rgba(102, 252, 241, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+    }
+
+    .terminal-preview-container:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(102, 252, 241, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .terminal-preview-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      padding-bottom: 8px;
-      margin-bottom: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      font-size: 0.75rem;
-      user-select: none;
     }
 
     .terminal-dots {
@@ -293,44 +290,33 @@
     .dot-yellow { background-color: #ffbd2e; }
     .dot-green { background-color: #27c93f; }
 
-    .terminal-title {
-      color: var(--text-muted);
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .ip-terminal-body {
+    .terminal-preview-body {
+      padding: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
       color: var(--accent-green);
       line-height: 1.5;
     }
 
-    .terminal-line {
-      margin: 4px 0;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-
-    .terminal-prompt {
-      color: #888;
-      user-select: none;
-    }
-
-    .terminal-input-container {
-      display: flex;
+    .terminal-btn {
+      display: inline-flex;
       align-items: center;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 15px;
+      background: rgba(102, 252, 241, 0.1);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .terminal-input-field {
-      background: transparent;
-      border: none;
-      color: var(--accent-green);
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.85rem;
-      outline: none;
-      flex: 1;
-      margin-left: 6px;
-      caret-color: var(--accent-green);
+    .terminal-preview-container:hover .terminal-btn {
+      background: var(--accent-cyan);
+      color: #0b0c10;
     }
 
     footer {
@@ -400,30 +386,29 @@
     </div>
 
     <h3>⚡ Terminal Simulator</h3>
-    <span class="terminal-subtitle">/* Bạn có thể trải nghiệm terminal Linux ở phía dưới. Nhập "help" để xem các lệnh mô phỏng được hỗ trợ  */</span>
+    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">
+      Bạn có thể trải nghiệm terminal Linux bằng cách click vào ô phía dưới. Trình giả lập này bao gồm một số lệnh phổ biến của Linux.
+    </p>
 
-    <div class="ip-terminal" id="terminal-wrapper">
-      <div class="ip-terminal-header">
-        <div class="terminal-dots">
-          <span class="terminal-dot dot-red"></span>
-          <span class="terminal-dot dot-yellow"></span>
-          <span class="terminal-dot dot-green"></span>
+    <a href="./terminal/" class="terminal-link-card">
+      <div class="terminal-preview-container">
+        <div class="terminal-preview-header">
+          <div class="terminal-dots">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+          </div>
+          <span>leminh_shell.sh - v4.5-lts</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">[BẤM ĐỂ MỞ]</span>
         </div>
-        <span class="terminal-title">leminh_shell.sh</span>
-        <span>bash</span>
-      </div>
-      <div class="ip-terminal-body">
-        <div id="terminal-history">
-          <div class="terminal-line"><span class="terminal-prompt">leminh@server:~$</span> ./check_visitor_info.sh</div>
-          <div class="terminal-line" id="terminal-status">Establishing connection to client...</div>
-          <div class="terminal-line" id="terminal-ip-detail"></div>
-        </div>
-        <div class="terminal-input-container">
-          <span class="terminal-prompt">leminh@server:~$</span>
-          <input type="text" class="terminal-input-field" id="terminal-input" autocomplete="off" spellcheck="false" />
+        <div class="terminal-preview-body">
+          <div><span style="color: #888">leminh@server:~$</span> ./launch_terminal.sh</div>
+          <div style="color: var(--accent-cyan); margin-top: 8px;">[SYSTEM] Initializing fullscreen environment...</div>
+          <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;">Host: leminh.pages.dev • Active session: Live</div>
+          <div class="terminal-btn">Mở shell giả lập ➜</div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 
 </div>
@@ -648,199 +633,6 @@
   }
 
   animate();
-
-  let ipCachedData = {
-    ip: 'Unknown',
-    connection: { isp: 'Unknown' },
-    city: 'Unknown',
-    region: 'Unknown',
-    country: 'Vietnam',
-    latitude: '0',
-    longitude: '0'
-  };
-
-  async function fetchVisitorInfo() {
-    const statusEl = document.getElementById('terminal-status');
-    const detailEl = document.getElementById('terminal-ip-detail');
-    
-    try {
-      const response = await fetch('https://ipwho.is/');
-      if (!response.ok) throw new Error('Primary API failed');
-      
-      const data = await response.json();
-      ipCachedData = data;
-      
-      setTimeout(() => {
-        statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Connection established successfully!";
-        
-        let output = "";
-        output += `IP Address  : ${data.ip || 'Unknown'}\n`;
-        output += `ISP / Net   : ${data.connection?.isp || data.connection?.org || 'Unknown'}\n`;
-        output += `Location    : ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country || 'Vietnam'}\n`;
-        output += `Coordinates : Lat ${data.latitude || '0'}, Lon ${data.longitude || '0'}`;
-
-        setTimeout(() => {
-          detailEl.innerHTML = output;
-        }, 600);
-
-      }, 1000);
-
-    } catch (error) {
-      try {
-        const responseFallback = await fetch('https://ipapi.co/json/');
-        if (!responseFallback.ok) throw new Error('Fallback API failed');
-        const dataFallback = await responseFallback.json();
-        ipCachedData = {
-          ip: dataFallback.ip,
-          connection: { isp: dataFallback.org },
-          city: dataFallback.city,
-          region: dataFallback.region,
-          country: dataFallback.country_name,
-          latitude: dataFallback.latitude,
-          longitude: dataFallback.longitude
-        };
-        
-        setTimeout(() => {
-          statusEl.innerHTML = "[ <span style='color: var(--accent-cyan)'>OK</span> ] Connection established successfully (Fallback)!";
-          
-          let output = "";
-          output += `IP Address  : ${dataFallback.ip || 'Unknown'}\n`;
-          output += `ISP / Net   : ${dataFallback.org || 'Unknown'}\n`;
-          output += `Location    : ${dataFallback.city || 'Unknown'}, ${dataFallback.region || 'Unknown'}, ${dataFallback.country_name || 'Vietnam'}\n`;
-          output += `Coordinates : Lat ${dataFallback.latitude || '0'}, Lon ${dataFallback.longitude || '0'}`;
-
-          setTimeout(() => {
-            detailEl.innerHTML = output;
-          }, 600);
-        }, 1000);
-      } catch (fallbackError) {
-        try {
-          const responseLast = await fetch('https://api.ipify.org?format=json');
-          const dataLast = await responseLast.json();
-          ipCachedData.ip = dataLast.ip;
-          
-          setTimeout(() => {
-            statusEl.innerHTML = "[ <span style='color: var(--accent-orange)'>WARN</span> ] Restricted connection. Detected IP:";
-            detailEl.innerHTML = `Your IP Address  : ${dataLast.ip || 'Unknown'}\nISP / Net   : Local Network Provider\nLocation    : Da Nang, Vietnam (Estimated)`;
-          }, 1000);
-        } catch (lastError) {
-          setTimeout(() => {
-            statusEl.innerHTML = "[ <span style='color: var(--accent-red)'>ERROR</span> ] Failed to resolve IP. Please check your internet connection.";
-          }, 1000);
-        }
-      }
-    }
-  }
-
-  window.addEventListener('load', fetchVisitorInfo);
-
-  const terminalWrapper = document.getElementById('terminal-wrapper');
-  const terminalInput = document.getElementById('terminal-input');
-  const terminalHistory = document.getElementById('terminal-history');
-
-  terminalWrapper.addEventListener('click', () => {
-    terminalInput.focus();
-  });
-
-  terminalInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const commandText = terminalInput.value.trim();
-      terminalInput.value = '';
-
-      if (commandText === '') return;
-
-      const userCommandLine = document.createElement('div');
-      userCommandLine.className = 'terminal-line';
-      userCommandLine.innerHTML = `<span class="terminal-prompt">leminh@server:~$</span> ${commandText}`;
-      terminalHistory.appendChild(userCommandLine);
-
-      const responseLine = document.createElement('div');
-      responseLine.className = 'terminal-line';
-
-      const args = commandText.split(' ');
-      const cmd = args[0].toLowerCase();
-
-      switch(cmd) {
-        case 'help':
-          responseLine.innerHTML = "System specific commands:\n  neofetch  - Display system configuration & OS metrics\n  skills    - List core specialties & academic details\n  fail2ban  - Track real-time network security logs\n  matrix    - Launch matrix digital code rain\n  clear     - Clean terminal history buffer\n\nStandard Linux commands:\n  ls        - List directory contents (Try: ls -la)\n  cat       - Concatenate and display files (e.g. cat firewall.conf)\n  pwd       - Print working directory path\n  whoami    - Print active user ID\n  ip a      - Inspect network interfaces configuration\n  date      - Print current system date & time";
-          break;
-        case 'clear':
-          terminalHistory.innerHTML = '';
-          responseLine.innerHTML = "Terminal cleared.";
-          break;
-        case 'neofetch':
-          responseLine.innerHTML = `   .-.      <span style='color: var(--accent-cyan)'>leminh@server</span>\n  oo|       --------------\n /' '\\      OS: Debian GNU/Linux 13 (Trixie)\n(\\__/)     Host: THPT Chuyên Lê Quý Đôn - Đà Nẵng\n            Kernel: 7.0.0-rt-leminh\n            Uptime: 29 days, 11 hours\n            Shell: bash 5.2.21\n            Target: Chuyên Toán K41`;
-          break;
-        case 'skills':
-          responseLine.innerHTML = "<span style='color: var(--accent-cyan)'>[+] Mathematics:</span> Le Quy Don Math Major K41, Logical Analytics, Calculus\n<span style='color: var(--accent-cyan)'>[+] Tech & Sec :</span> Linux Systems, Shell Scripting, Networking, Cybersecurity, JS/Python\n<span style='color: var(--accent-cyan)'>[+] Audiophile :</span> Audio Mastering, Hi-Res Setup, DAC/AMP Tuning\n<span style='color: var(--accent-cyan)'>[+] Creativity :</span> Media Production, Editing, Creative Photography";
-          break;
-        case 'fail2ban':
-          let logs = "";
-          for(let i = 0; i < 4; i++) {
-            const randomIP = `${Math.floor(Math.random()*223)+1}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-            logs += `[Fail2ban] <span style='color: var(--accent-red)'>BANNED</span> IP: ${randomIP} - Warning: Brute-force SSH attack blocked.\n`;
-          }
-          logs += `[UFW Firewall] Rule set to DROP packets from non-local sync.`;
-          responseLine.innerHTML = logs;
-          break;
-        case 'matrix':
-          let matrixStream = "";
-          for(let r = 0; r < 5; r++) {
-            let chunk = "";
-            for(let c = 0; c < 45; c++) {
-              chunk += Math.random() > 0.5 ? "1" : "0";
-            }
-            matrixStream += chunk + "\n";
-          }
-          responseLine.innerHTML = `<span style='color: var(--accent-green)'>${matrixStream}</span>[INFO] Cryptographic verification complete. Encryption is active.`;
-          break;
-        case 'pwd':
-          responseLine.innerHTML = "/home/leminh";
-          break;
-        case 'whoami':
-          responseLine.innerHTML = "leminh";
-          break;
-        case 'date':
-          responseLine.innerHTML = new Date().toString();
-          break;
-        case 'ls':
-          if (args[1] === '-la' || args[1] === '-a' || args[1] === '-l') {
-            responseLine.innerHTML = "drwxr-xr-x  5 leminh leminh  4096 May 25 20:58 .\ndrwxr-xr-x  3 root   root    4096 May 01 00:00 ..\n-rw-r--r--  1 leminh leminh   142 May 25 20:58 firewall.conf\n-rw-------  1 leminh leminh    64 May 25 20:58 wireguard.key\ndrwxr-xr-x  2 leminh leminh  4096 May 25 20:58 pihole\n-rw-r--r--  1 leminh leminh  8412 May 25 20:58 classic_jazz.mp3";
-          } else {
-            responseLine.innerHTML = "<span style='color: var(--accent-blue)'>pihole</span>  classic_jazz.mp3  firewall.conf  wireguard.key";
-          }
-          break;
-        case 'cat':
-          const targetFile = args[1];
-          if (!targetFile) {
-            responseLine.innerHTML = "cat: missing operand. Usage: cat [filename]";
-          } else if (targetFile === 'firewall.conf') {
-            responseLine.innerHTML = "# UFW Configuration\nSTATUS=active\nDEFAULT_INPUT_POLICY=DROP\nDEFAULT_OUTPUT_POLICY=ACCEPT\nOPEN_PORTS=80,443,51820/udp";
-          } else if (targetFile === 'wireguard.key') {
-            responseLine.innerHTML = "eGg1S0pXN090Y0g5Mm1uNnA0cTNyN3M4dDl1MHYxdzI=";
-          } else if (targetFile === 'classic_jazz.mp3') {
-            responseLine.innerHTML = "cat: classic_jazz.mp3: Cannot display binary file contents in text terminal.";
-          } else if (targetFile === 'pihole') {
-            responseLine.innerHTML = "cat: pihole: Is a directory";
-          } else {
-            responseLine.innerHTML = `cat: ${targetFile}: No such file or directory`;
-          }
-          break;
-        case 'ip':
-          if (args[1] === 'a') {
-            responseLine.innerHTML = `eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n        inet ${ipCachedData.ip || '127.0.0.1'}  netmask 255.255.255.0\n        inet6 fe80::leminh:core/64  scope link\n        ether 4a:51:bc:92:ef:01  txqueuelen 1000  (Ethernet)\n        RX packets 912043  bytes 104291032\n        TX packets 542109  bytes 68102943\n\nlo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536\n        inet 127.0.0.1  netmask 255.0.0.0`;
-          } else {
-            responseLine.innerHTML = "Usage: ip a";
-          }
-          break;
-        default:
-          responseLine.innerHTML = `bash: ${cmd}: command not found. Type 'help' to see available commands.`;
-      }
-
-      terminalHistory.appendChild(responseLine);
-      terminalWrapper.scrollTop = terminalWrapper.scrollHeight;
-    }
-  });
 </script>
 
 </body>
